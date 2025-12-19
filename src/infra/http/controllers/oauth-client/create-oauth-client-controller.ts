@@ -8,6 +8,7 @@ export const createOauthClientController: FastifyPluginAsyncZod = async app => {
     '/oauth',
     {
       schema: {
+        hide: true,
         tags: ['OAuth Client'],
         summary: 'Create OAuth Client',
         body: z.object({
