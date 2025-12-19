@@ -16,6 +16,11 @@ export const pingController: FastifyPluginAsyncZod = async app => {
             message: z.string(),
           }),
         },
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
       },
     },
     async (request, reply) => {
