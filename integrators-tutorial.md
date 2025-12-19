@@ -24,7 +24,7 @@ Para iniciar a comunicação com a API, você deve gerar um par de tokens envian
 
 **`clientId` para Testes:** `fb65e109-c50f-4ad0-8908-b2ebb9dd716a`
 
-**Exemplo de Requisição (cURL):**
+**Exemplo de Requisição (CURL):**
 
 ```bash
 curl -X POST 'https://gclient-api.vercel.app/v1/oauth/token' \
@@ -45,7 +45,7 @@ curl -X POST 'https://gclient-api.vercel.app/v1/oauth/token' \
 
 ## 3. Passo 2: Autenticação e Teste de Conexão
 
-Após obter o `accessToken`, ele deve ser enviado no cabeçalho `Authorization` de todas as requisições subsequentes.
+Após obter o `accessToken`, ele deve ser enviado no cabeçalho `Authorization` de todas as requisições protegidas.
 
 ### Como Autenticar
 
@@ -61,7 +61,7 @@ Para verificar se o seu `accessToken` está válido e se a conexão com a API es
 | **Endpoint**  | `/v1/ping`                                            |
 | **Requisito** | **Access Token** válido no cabeçalho `Authorization`. |
 
-**Exemplo de Requisição (cURL):**
+**Exemplo de Requisição (CURL):**
 
 ```bash
 curl -X POST 'https://gclient-api.vercel.app/v1/ping' \
@@ -92,7 +92,7 @@ O `accessToken` possui um tempo de vida limitado (`expiresIn`). Quando ele expir
 | **Endpoint**            | `/v1/oauth/token/refresh`       |
 | **Corpo da Requisição** | JSON contendo o `refreshToken`. |
 
-**Exemplo de Requisição (cURL):**
+**Exemplo de Requisição (CURL):**
 
 ```bash
 curl -X POST 'https://api.suaempresa.com/v1/oauth/token/refresh' \
@@ -102,6 +102,6 @@ curl -X POST 'https://api.suaempresa.com/v1/oauth/token/refresh' \
 }'
 ```
 
-A resposta será um novo objeto JSON contendo um novo `accessToken` e, opcionalmente, um novo `refreshToken`.
+A resposta será um novo objeto JSON contendo um novo `accessToken` e um novo `refreshToken`.
 
 ---
