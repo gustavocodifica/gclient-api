@@ -5,17 +5,18 @@ import { errorHandler } from './error-handler'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
 
-import { zodToJsonSchema } from 'zod-to-json-schema'
+import jwt from '@fastify/jwt'
 
 import {
   serializerCompiler,
   validatorCompiler,
-  type ZodTypeProvider,
+  jsonSchemaTransform,
 } from 'fastify-type-provider-zod'
 
-import { routes } from './controllers'
+import { OAuthClientRoutes } from './controllers/oauth-client'
+import { env } from '../env'
 
-export const app = fastify().withTypeProvider<ZodTypeProvider>()
+export const app = fastify()
 
 app.setSerializerCompiler(serializerCompiler)
 app.setValidatorCompiler(validatorCompiler)
@@ -37,37 +38,20 @@ app.register(fastifySwagger, {
       },
     },
   },
-  transform: ({ schema, url }) => {
-    if (schema && typeof schema === 'object' && 'response' in schema) {
-      const responses = schema.response as Record<string, any>
-
-      for (const statusCode of Object.keys(responses)) {
-        const zodSchema = responses[statusCode]
-
-        if (
-          zodSchema &&
-          typeof zodSchema === 'object' &&
-          'safeParse' in zodSchema
-        ) {
-          responses[statusCode] = {
-            content: {
-              'application/json': {
-                schema: zodToJsonSchema(zodSchema),
-              },
-            },
-          }
-        }
-      }
-    }
-
-    return { schema, url }
-  },
+  transform: jsonSchemaTransform,
 })
 
 app.register(fastifySwaggerUI, {
   routePrefix: '/docs',
 })
 
+app.register(jwt, {
+  secret: env.JWT_SECRET,
+  sign: {
+    expiresIn: '1h',
+  },
+})
+
 app.setErrorHandler(errorHandler)
 
-app.register(routes)
+app.register(OAuthClientRoutes)

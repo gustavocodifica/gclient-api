@@ -6,6 +6,10 @@ import { logger } from '../logger'
 const envSchema = z.object({
   NODE_ENV: z.enum(['dev', 'production']).default('dev'),
   PORT: z.coerce.number().default(3333),
+  CLIENT_EMAIL: z.string().email(),
+  PRIVATE_KEY: z.string(),
+  PROJECT_ID: z.string(),
+  JWT_SECRET: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)
