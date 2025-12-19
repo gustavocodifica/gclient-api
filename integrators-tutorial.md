@@ -95,7 +95,8 @@ O `accessToken` possui um tempo de vida limitado (`expiresIn`). Quando ele expir
 **Exemplo de Requisição (CURL):**
 
 ```bash
-curl -X POST 'https://api.suaempresa.com/v1/oauth/token/refresh' \
+
+curl -X POST 'https://gclient-api.vercel.app/v1/oauth/token/refresh' \
 -H 'Content-Type: application/json' \
 -d '{
     "refreshToken": "SEU_REFRESH_TOKEN"
