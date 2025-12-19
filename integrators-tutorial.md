@@ -1,5 +1,9 @@
 # Guia Rápido de Integração: API Pública
 
+## Documentação dos endpoints
+
+Acesse: https://gclient-api.vercel.app/docs
+
 ## 1. Visão Geral da Autenticação
 
 A API Pública utiliza o padrão **JSON Web Token (JWT)**, também conhecido como **Bearer Token**, para autenticar todas as requisições a _endpoints_ protegidos. O processo de integração é dividido em três etapas principais:
