@@ -10,4 +10,6 @@ const app = admin.initializeApp({
   }),
 })
 
+console.log(env.PRIVATE_KEY.replace(/\\n/g, '\n'))
+
 export const db = app.firestore()

@@ -6,6 +6,7 @@ import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
 
 import jwt from '@fastify/jwt'
+import cors from '@fastify/cors'
 
 import {
   serializerCompiler,
@@ -50,6 +51,10 @@ app.register(jwt, {
   sign: {
     expiresIn: '1h',
   },
+})
+
+app.register(cors, {
+  origin: '*',
 })
 
 app.setErrorHandler(errorHandler)
